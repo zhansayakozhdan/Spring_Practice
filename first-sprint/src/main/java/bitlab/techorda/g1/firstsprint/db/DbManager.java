@@ -10,7 +10,7 @@ import java.util.List;
 public class DbManager {
     @Getter
     private static List<Student> students = new ArrayList<>();
-    private static Long id = 9L;
+    private static Long id = 10L;
     static {
         students.add(new Student(1L, "Zhansaya", "Kozhdan", 98, "A"));
         students.add(new Student(2L, "Dias", "Kozhdan", 74, "C"));
