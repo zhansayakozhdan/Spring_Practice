@@ -28,4 +28,18 @@ public class DbManager {
         id++;
         students.add(student);
     }
+
+    public static String resultGrade(int exam){
+        if (exam >= 90) {
+            return "A";
+        } else if (exam >= 75) {
+            return "B";
+        } else if (exam >= 60) {
+            return "C";
+        } else if (exam >= 50) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
 }

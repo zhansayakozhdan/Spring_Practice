@@ -27,6 +27,7 @@ public class HomeController {
 
     @PostMapping("/students/add")
     public String addStudentPage(Student student){
+        student.setMark(DbManager.resultGrade(student.getExam()));
         DbManager.addStudent(student);
         return "redirect:/";
     }
