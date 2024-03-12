@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="head.html">
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+</head>
+<body class="col col-8 mx-auto">
+<div th:insert="~{navbar.html}"></div>
+<br>
+<table class="table table-striped">
+    <thead>
+        <th>ID</th>
+        <th>FIRST NAME</th>
+        <th>LAST NAME</th>
+        <th>EXAM</th>
+        <th>MARK</th>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${studenty}"
+        th:class="${student.exam < 50 ? 'table-danger' : 'table-white'}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.lastName}"></td>
+        <td th:text="${student.exam}"></td>
+        <td th:text="${student.exam >= 90 ? 'A' : (student.exam >= 75 ? 'B' : (student.exam >= 60 ? 'C' : (student.exam >= 50 ? 'D' : 'F')))}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

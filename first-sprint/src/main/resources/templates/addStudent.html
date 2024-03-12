@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{head.html}">
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+</head>
+<body class="col col-8 mx-auto">
+<div th:insert="~{navbar.html}"></div>
+<br>
+<form action="/students/add" method="post" class="col-8 mx-auto">
+    <div class="mb-3">
+        <label for="nameField" class="form-label">FIRST NAME</label>
+        <input type="text" name="firstName" class="form-control" id="nameField">
+    </div>
+    <div class="mb-3">
+        <label for="surnameField" class="form-label">LAST NAME</label>
+        <input type="text" name="lastName" class="form-control" id="surnameField">
+    </div>
+    <div class="mb-3">
+        <label for="examField" class="form-label">EXAM</label>
+        <input type="number" name="exam" class="form-control" id="examField">
+    </div>
+
+    <button type="submit" class="btn btn-success float-end">ADD STUDENT</button>
+</form>
+</body>
+</html>
