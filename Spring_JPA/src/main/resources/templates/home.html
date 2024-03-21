@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+        layout:decorate="layout/main.html">
+<div class="row d-flex" layout:fragment="content">
+    <div th:each="request : ${zaprosy}" class="col-md-6 mt-4">
+        <div style="border: 1px solid #ccc; padding: 10px; margin-right: 8px;">
+            <h4 th:text="${request.userName}"></h4>
+            <p th:text="${request.courseName}"></p>
+            <p th:text="${request.commentary}"></p>
+            <p th:text="${request.phone}"></p>
+            <button class="btn btn-primary">Подробнее</button>
+        </div>
+    </div>
+</div>
+</html>

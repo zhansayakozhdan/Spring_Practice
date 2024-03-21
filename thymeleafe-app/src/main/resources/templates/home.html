@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:insert="~{header}">
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div th:insert="~{navbar}"></div>
-</body>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+        layout:decorate="layout/main.html">
+
+<div layout:fragment="content">
+    <form action="phone/add" method="post">
+        <input type="text" name="name">
+        <input type="text" name="description">
+        <input type="number" name="price">
+        <button>Add Phone</button>
+    </form>
+    <table cellpadding="10px">
+        <thead>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>DESCRIPTION</th>
+        </thead>
+        <tbody>
+        <tr th:each="phone : ${telefony}">
+            <td th:text="${phone.id}"></td>
+            <td th:text="${phone.name}"></td>
+            <td th:text="${phone.price}"></td>
+            <td th:text="${phone.description}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
 </html>

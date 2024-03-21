@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layout/main.html">
+
+<div layout:fragment="content" class="col-8 mx-auto mt-4">
+    <h4 th:hidden="${!zayavka.handled}" style="color: green" class="text-center">The processed application!</h4>
+    <h4 th:hidden="${zayavka.handled}" style="color: crimson" class="text-center">*New unprocessed application*</h4>
+    <form action="/request/edit" method="post">
+        <input type="hidden" th:value="${zayavka.id}" name="id">
+        <div class="mb-3">
+            <label for="userNameField" class="form-label">ФИО:</label>
+            <input type="text" name="userName" th:value="${zayavka.userName}" class="form-control" id="userNameField" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="courseNameField" class="form-label">Курс:</label>
+            <select name="course.id" class="form-select" readonly>
+                <option th:each="course : ${courses}"
+                        th:text="${course.name}" th:value="${course.id}"
+                        th:selected="${zayavka.course.id == course.id}" id="courseNameField"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Телефон:</label>
+            <input type="text" name="phoneNumber" th:value="${zayavka.phoneNumber}" class="form-control" id="phone" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="commentary" class="form-label">Комментарий:</label>
+            <textarea name="comment" th:text="${zayavka.comment}" class="form-control" id="commentary" placeholder="Ваш комментарий" readonly></textarea>
+        </div>
+        <button class="btn btn-success mb-2" th:hidden="${zayavka.handled}">Обработать заявку</button>
+    </form>
+    <form action="/request/delete" method="post">
+        <input type="hidden" th:value="${zayavka.id}" name="id">
+        <button class="btn btn-danger">Удалить заявку</button>
+    </form>
+
+</div>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{layout/main.html}">
+<div class="row d-flex" layout:fragment="content">
+    <div th:each="zayavka : ${zayavki}" class="col-md-6 mt-4">
+        <div style="border: 1px solid #ccc; padding: 10px; margin-right: 8px; border-radius: 5px">
+            <div class="d-flex">
+            <h4 th:hidden="${zayavka.handled}" style="color: red">*(Новая) </h4><h4 th:text="' Заявка от: ' + ${zayavka.userName}"></h4>
+            </div>
+            <p th:text="'Курс: ' + ${zayavka.course.name}" class="mb-1"></p>
+            <p th:text="${zayavka.comment}"></p>
+            <div class="d-flex justify-content-between">
+            <p th:text="'Тел:' + ${zayavka.phoneNumber}"></p>
+            <a class="btn btn-primary" th:href="${'/request/'+ zayavka.id}">Подробнее</a>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
