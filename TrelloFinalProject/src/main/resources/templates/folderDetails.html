@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layout/main.html">
+<div layout:fragment="content">
+    <div class="card mb-4">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <h5 class="card-title" th:text="${papka.name}"></h5>
+            <div class="d-flex">
+                <!-- Button trigger modal -->
+                <button th:each="category : ${papka.getTaskCategories()}" th:text="${category.name} + ' x'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">
+                </button>
+
+                <!-- Modal -->
+                <form action="/delete/category/fromFolder" method="post" th:each="category : ${papka.getTaskCategories()}">
+                <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="deleteCategoryModalLabel">Remove Category</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Вы точно хотите удалить категорию <b th:text="${category.name}"></b>?</p>
+                                <input type="hidden" name="folderId" th:value="${papka.id}">
+                                <input type="hidden" name="taskCategoriesId" th:value="${category.id}">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger">REMOVE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+
+<!--                <form action="/delete/category/fromFolder" method="post" th:each="category : ${papka.getTaskCategories()}">-->
+<!--                    <input type="hidden" name="folderId" th:value="${papka.id}">-->
+<!--                    <input type="hidden" name="taskCategoriesId" th:value="${category.id}">-->
+<!--                    <button th:text="${category.name} + ' x'" class="btn btn-primary"></button>-->
+<!--                </form>-->
+
+                <!-- Button for add category modal -->
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    + ADD CATEGORY TO FOLDER
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Assign Category to Folder</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/add/category/toFolder" method="post" class="modal-body">
+                    <label class="form-label">Category's Name:</label>
+                    <input type="hidden" name="folderId" th:value="${papka.id}">
+                    <select name="taskCategoriesId" class="form-select">
+                        <option th:each="kategoriya : ${kategorii}" th:text="${kategoriya.name}" th:value="${kategoriya.id}"></option>
+                    </select>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Category</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button for add task modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+        + ADD TASK
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addTaskModalLabel">Create New Task to Folder</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="modal-body" action="/add/task/toFolder" method="post">
+                    <input type="hidden" name="folder.id" th:value="${papka.id}">
+                    <div class="mb-3">
+                        <label for="taskNameField" class="form-label">Task's Title:</label>
+                        <input type="text" name="title" class="form-control" id="taskNameField">
+                    </div>
+                    <div class="mb-3">
+                        <label for="taskDescriptionField" class="form-label">Description:</label>
+                        <textarea type="text" name="description" class="form-control" id="taskDescriptionField"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">ADD TASK</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <th>ID</th>
+        <th>TASK NAME</th>
+        <th>STATUS</th>
+        <th>DETAILS</th>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${zadachi}">
+            <td th:text="${task.id}"></td>
+            <td th:text="${task.title}"></td>
+            <td th:text="${task.status}"></td>
+            <td><a th:href="'/task/details/' + ${task.id}" class="btn btn-primary">View More</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</html>
