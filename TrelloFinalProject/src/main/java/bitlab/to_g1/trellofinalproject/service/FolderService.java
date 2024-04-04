@@ -15,6 +15,9 @@ public class FolderService {
     @Autowired
     private TaskCategoryService taskCategoryService;
 
+    @Autowired
+    private TaskService taskService;
+
     public List<Folder> getAllFolders() {
         return folderRepository.findAll();
     }
@@ -40,9 +43,9 @@ public class FolderService {
         folderRepository.save(folder);
     }
 
-    public void deleteCategoryFromFolder(Long folderId, Long taskCategoriesId) {
+    public void deleteCategoryFromFolder(Long folderId, Long taskCategoryId) {
         Folder folder = getFolderById(folderId);
-        TaskCategory taskCategory = taskCategoryService.getTaskCategoryById(taskCategoriesId);
+        TaskCategory taskCategory = taskCategoryService.getTaskCategoryById(taskCategoryId);
         if(folder == null || taskCategory == null){
             return;
         }
@@ -51,5 +54,11 @@ public class FolderService {
         taskCategories.remove(taskCategory);
 
         folderRepository.save(folder);
+    }
+
+    public void deleteFolderById(Long folderId){
+        taskService.deleteTasksFromFolder(folderId);
+
+        folderRepository.deleteById(folderId);
     }
 }

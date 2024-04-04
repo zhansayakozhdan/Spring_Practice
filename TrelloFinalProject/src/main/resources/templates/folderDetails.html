@@ -7,9 +7,10 @@
         <div class="card-header"></div>
         <div class="card-body">
             <h5 class="card-title" th:text="${papka.name}"></h5>
-            <div class="d-flex">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                 <!-- Button trigger modal -->
-                <button th:each="category : ${papka.getTaskCategories()}" th:text="${category.name} + ' x'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">
+                <div th:each="category : ${papka.getTaskCategories()}">
+                <button th:text="${category.name} + ' x'" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">
                 </button>
 
                 <!-- Modal -->
@@ -24,7 +25,7 @@
                             <div class="modal-body">
                                 <p>Вы точно хотите удалить категорию <b th:text="${category.name}"></b>?</p>
                                 <input type="hidden" name="folderId" th:value="${papka.id}">
-                                <input type="hidden" name="taskCategoriesId" th:value="${category.id}">
+                                <input type="hidden" name="taskCategoryId" th:value="${category.id}">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -34,12 +35,7 @@
                     </div>
                 </div>
                 </form>
-
-<!--                <form action="/delete/category/fromFolder" method="post" th:each="category : ${papka.getTaskCategories()}">-->
-<!--                    <input type="hidden" name="folderId" th:value="${papka.id}">-->
-<!--                    <input type="hidden" name="taskCategoriesId" th:value="${category.id}">-->
-<!--                    <button th:text="${category.name} + ' x'" class="btn btn-primary"></button>-->
-<!--                </form>-->
+                </div>
 
                 <!-- Button for add category modal -->
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -60,7 +56,7 @@
                 <form action="/add/category/toFolder" method="post" class="modal-body">
                     <label class="form-label">Category's Name:</label>
                     <input type="hidden" name="folderId" th:value="${papka.id}">
-                    <select name="taskCategoriesId" class="form-select">
+                    <select name="taskCategoryId" class="form-select">
                         <option th:each="kategoriya : ${kategorii}" th:text="${kategoriya.name}" th:value="${kategoriya.id}"></option>
                     </select>
                     <div class="modal-footer">
@@ -73,7 +69,7 @@
     </div>
 
     <!-- Button for add task modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTaskModal">
         + ADD TASK
     </button>
 
@@ -97,7 +93,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">ADD TASK</button>
+                        <button type="submit" class="btn btn-success">ADD TASK</button>
                     </div>
                 </form>
             </div>
@@ -115,11 +111,18 @@
         <tr th:each="task : ${zadachi}">
             <td th:text="${task.id}"></td>
             <td th:text="${task.title}"></td>
-            <td th:text="${task.status}"></td>
-            <td><a th:href="'/task/details/' + ${task.id}" class="btn btn-primary">View More</a></td>
+            <td th:text="${task.status == 0 ? 'TO DO' : (task.status == 1 ? 'IN TEST' : (task.status == 2 ? 'DONE' : 'FAILED'))}"></td>
+            <td><a th:href="@{'/task/details/' + ${task.id}}" class="btn btn-primary">View More</a></td>
         </tr>
         </tbody>
     </table>
+
+
+    <form action="/folder/delete" method="post">
+        <input type="hidden" th:value="${papka.id}" name="id">
+        <button class="btn btn-danger">DELETE FOLDER</button>
+    </form>
 </div>
+
 
 </html>

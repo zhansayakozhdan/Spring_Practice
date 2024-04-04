@@ -1,5 +1,6 @@
 package bitlab.to_g1.trellofinalproject.entity;
 
+import bitlab.to_g1.trellofinalproject.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,12 +11,8 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class TaskCategory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
-
+@ToString
+public class TaskCategory extends BaseEntity {
     @Column(name = "NAME", nullable = false)
     private String name;
 }

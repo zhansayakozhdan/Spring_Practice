@@ -1,5 +1,6 @@
 package bitlab.to_g1.trellofinalproject.service;
 
+import bitlab.to_g1.trellofinalproject.entity.Folder;
 import bitlab.to_g1.trellofinalproject.entity.Task;
 import bitlab.to_g1.trellofinalproject.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import java.util.List;
 public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private CommentService commentService;
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
@@ -43,4 +47,19 @@ public class TaskService {
     public Task editTaskStatus(Task task) {
         return taskRepository.save(task);
     }
+
+    public void deleteTaskById(Long taskId){
+        commentService.deleteCommentsFromTask(taskId);
+        taskRepository.deleteById(taskId);
+    }
+
+    public void deleteTasksFromFolder(Long folderId){
+        List<Task> tasks = getTasksByFolderId(folderId);
+        for (Task task : tasks) {
+            commentService.deleteCommentsFromTask(task.getId());
+        }
+        taskRepository.deleteAllInBatch(tasks);
+    }
+
+
 }

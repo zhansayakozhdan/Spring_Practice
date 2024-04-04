@@ -1,5 +1,6 @@
 package bitlab.to_g1.trellofinalproject.entity;
 
+import bitlab.to_g1.trellofinalproject.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,16 +13,11 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class Folder {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
-
+public class Folder extends BaseEntity {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToMany
+    @ManyToMany()
     private List<TaskCategory> taskCategories;
 
 }

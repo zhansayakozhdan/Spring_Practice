@@ -55,8 +55,8 @@ public class HomeController {
     }
 
     @PostMapping("/add/category/toFolder")
-    public String addCategoryToFolder(@RequestParam Long folderId, @RequestParam Long taskCategoriesId){
-        folderService.addCategoryToFolder(folderId, taskCategoriesId);
+    public String addCategoryToFolder(@RequestParam Long folderId, @RequestParam Long taskCategoryId){
+        folderService.addCategoryToFolder(folderId, taskCategoryId);
         return "redirect:/folder/details/"+folderId;
     }
 
@@ -66,36 +66,21 @@ public class HomeController {
         return "redirect:/folder/details/"+folderId;
     }
 
-    @GetMapping("/task/categories")
-    public String categoriesPage(Model model){
-        List<TaskCategory> categories = taskCategoryService.getAllTaskCategories();
-        model.addAttribute("kategorii", categories);
-        return "categories";
-    }
-
-    @PostMapping("/category/add")
-    public String addCategory(TaskCategory taskCategory){
-        taskCategoryService.createTaskCategory(taskCategory);
-        return "redirect:/task/categories";
-    }
-
     @PostMapping("/add/task/toFolder")
     public String addTaskToFolder(Task task){
         taskService.addTaskToFolder(task);
         return "redirect:/folder/details/"+task.getFolder().getId();
     }
 
-    @GetMapping("/task/details/{id}")
-    public String taskDetailsPage(@PathVariable Long id, Model model){
-        Task task = taskService.getTaskById(id);
-        model.addAttribute("zadacha", task);
-        return "taskDetails";
+    @PostMapping("/delete/task/fromFolder")
+    public String deleteTask(@RequestParam Long id){
+        taskService.deleteTaskById(id);
+        return "redirect:/";
     }
 
-    @PostMapping("/edit/task")
-    public String editTaskStatus(Task task){
-        taskService.editTaskStatus(task);
-        return "redirect:/task/details/"+task.getId();
+    @PostMapping("/folder/delete")
+    public String deleteFolder(@RequestParam Long id){
+        folderService.deleteFolderById(id);
+        return "redirect:/";
     }
-
 }

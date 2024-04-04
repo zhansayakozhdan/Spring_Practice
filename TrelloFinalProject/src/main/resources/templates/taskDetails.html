@@ -8,11 +8,13 @@
         <input type="hidden" th:value="${zadacha.folder.id}" name="folder.id">
         <div class="mb-3">
             <label for="taskNameField" class="form-label">Task's Title:</label>
-            <input name="title" class="form-control" id="taskNameField" type="text" th:value="${zadacha.title}" readonly>
+            <input name="title" class="form-control" id="taskNameField" type="text" th:value="${zadacha.title}"
+                   readonly>
         </div>
         <div class="mb-3">
             <label for="taskDescriptionField" class="form-label">Description:</label>
-            <textarea name="description" class="form-control" id="taskDescriptionField" th:text="${zadacha.description}" readonly></textarea>
+            <textarea name="description" class="form-control" id="taskDescriptionField" th:text="${zadacha.description}"
+                      readonly></textarea>
         </div>
         <div class="mb-3">
             <label class="form-label">Status:</label>
@@ -23,7 +25,34 @@
                 <option th:value="${3}" th:selected="${zadacha.status==3}">FAILED</option>
             </select>
         </div>
-        <button type="submit">Save Changes</button>
+        <button class="btn btn-primary" type="submit">Save Changes</button>
     </form>
+    <form action="/delete/task/fromFolder" method="post">
+        <input type="hidden" th:value="${zadacha.id}" name="id">
+        <button class="btn btn-danger">DELETE TASK</button>
+    </form>
+
+    <div class="hr"></div>
+    <div class="mb-3">
+        <form action="/add/comment/toTask" method="post">
+            <input type="hidden" name="task.id" th:value="${zadacha.id}">
+            <label for="commentTextarea" class="form-label">Your comment:</label>
+            <textarea th:name="value" class="form-control" id="commentTextarea" rows="3"></textarea>
+
+            <button class="btn btn-primary" type="submit">ADD COMMENT</button>
+        </form>
+    </div>
+
+    <div class="hr"></div>
+    <h4>Comments:</h4>
+    <div class="card" th:each="comment : ${komenty}">
+        <h5 class="card-header"></h5>
+        <div class="card-body">
+            <h6 class="card-title">Unknown user</h6>
+            <p class="card-text" th:text="${comment.value}"></p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
 </div>
 </html>

@@ -1,5 +1,6 @@
 package bitlab.to_g1.trellofinalproject.entity;
 
+import bitlab.to_g1.trellofinalproject.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,11 +11,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Task extends BaseEntity {
     @Column(name = "TITLE")
     private String title;
 
@@ -22,9 +19,10 @@ public class Task {
     private String description; // TEXT
 
     @Column(name = "STATUS")
-    private int status;        // 0 - todo, 1 - intest, 2 - done, 3 - failed
+    private Integer status;        // 0 - todo, 1 - intest, 2 - done, 3 - failed
 
     @ManyToOne
+    @JoinColumn(name = "FOLDER_ID")
     private Folder folder; // Many To One
 
 }
