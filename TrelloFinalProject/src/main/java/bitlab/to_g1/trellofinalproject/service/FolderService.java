@@ -33,7 +33,7 @@ public class FolderService {
     public void addCategoryToFolder(Long folderId, Long taskCategoriesId) {
         Folder folder = getFolderById(folderId);
         TaskCategory taskCategory = taskCategoryService.getTaskCategoryById(taskCategoriesId);
-        if(folder == null || taskCategory == null){
+        if (folder == null || taskCategory == null) {
             return;
         }
 
@@ -46,7 +46,7 @@ public class FolderService {
     public void deleteCategoryFromFolder(Long folderId, Long taskCategoryId) {
         Folder folder = getFolderById(folderId);
         TaskCategory taskCategory = taskCategoryService.getTaskCategoryById(taskCategoryId);
-        if(folder == null || taskCategory == null){
+        if (folder == null || taskCategory == null) {
             return;
         }
 
@@ -56,7 +56,7 @@ public class FolderService {
         folderRepository.save(folder);
     }
 
-    public void deleteFolderById(Long folderId){
+    public void deleteFolderById(Long folderId) {
         taskService.deleteTasksFromFolder(folderId);
 
         folderRepository.deleteById(folderId);

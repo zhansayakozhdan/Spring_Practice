@@ -37,7 +37,7 @@
         <form action="/add/comment/toTask" method="post">
             <input type="hidden" name="task.id" th:value="${zadacha.id}">
             <label for="commentTextarea" class="form-label">Your comment:</label>
-            <textarea th:name="value" class="form-control" id="commentTextarea" rows="3"></textarea>
+            <textarea th:name="value" class="form-control mb-1" id="commentTextarea" rows="3" placeholder="Write a comment..."></textarea>
 
             <button class="btn btn-primary" type="submit">ADD COMMENT</button>
         </form>
@@ -45,12 +45,17 @@
 
     <div class="hr"></div>
     <h4>Comments:</h4>
-    <div class="card" th:each="comment : ${komenty}">
+    <div class="card mb-2" th:each="comment : ${komenty}">
         <h5 class="card-header"></h5>
         <div class="card-body">
             <h6 class="card-title">Unknown user</h6>
-            <p class="card-text" th:text="${comment.value}"></p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <p class="card-text" th:text="${comment.value}" name="value"></p>
+            <form action="/delete/comment/fromTask" method="post">
+                <input type="hidden" th:value="${zadacha.id}" name="taskId">
+                <input type="hidden" th:value="${comment.id}" name="commentId">
+                <button type="submit" class="btn btn-danger">DELETE COMMENT</button>
+            </form>
+
         </div>
     </div>
 

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.tags.form.TextareaTag;
 @Setter
 @Builder
 public class Comment extends BaseEntity {
-    @Column(name = "VALUE")
+    @Column(name = "VALUE", nullable = false)
     private String value;
 
     @ManyToOne

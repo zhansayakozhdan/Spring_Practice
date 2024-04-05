@@ -6,16 +6,16 @@
     <div class="card mb-4">
         <div class="card-header"></div>
         <div class="card-body">
-            <h5 class="card-title" th:text="${papka.name}"></h5>
+            <h5 class="card-title" th:text="'FOLDER: '+${papka.name}"></h5>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <!-- Button trigger modal -->
+                <!-- Button category delete modal -->
                 <div th:each="category : ${papka.getTaskCategories()}">
-                <button th:text="${category.name} + ' x'" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">
+                <button th:text="${category.name} + ' x'" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" th:data-bs-target="${'#deleteCategoryModal'+category.id}">
                 </button>
 
-                <!-- Modal -->
-                <form action="/delete/category/fromFolder" method="post" th:each="category : ${papka.getTaskCategories()}">
-                <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- Modal category delete -->
+                <form action="/delete/category/fromFolder" method="post">
+                <div class="modal fade" th:id="${'deleteCategoryModal'+category.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -73,9 +73,9 @@
         + ADD TASK
     </button>
 
-    <!-- Modal -->
+    <!-- Modal add new task to folder-->
     <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="addTaskModalLabel">Create New Task to Folder</h1>
@@ -111,7 +111,8 @@
         <tr th:each="task : ${zadachi}">
             <td th:text="${task.id}"></td>
             <td th:text="${task.title}"></td>
-            <td th:text="${task.status == 0 ? 'TO DO' : (task.status == 1 ? 'IN TEST' : (task.status == 2 ? 'DONE' : 'FAILED'))}"></td>
+            <td th:class="${task.status == 0 ? 'text-primary' : (task.status == 1 ? 'text-warning' : (task.status == 2 ? 'text-success' : 'text-danger'))}"
+            th:text="${task.status == 0 ? 'TO DO' : (task.status == 1 ? 'IN TEST' : (task.status == 2 ? 'DONE' : 'FAILED'))}"></td>
             <td><a th:href="@{'/task/details/' + ${task.id}}" class="btn btn-primary">View More</a></td>
         </tr>
         </tbody>

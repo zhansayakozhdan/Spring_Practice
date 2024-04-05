@@ -61,8 +61,8 @@ public class HomeController {
     }
 
     @PostMapping("/delete/category/fromFolder")
-    public String deleteCategoryFromFolder(@RequestParam Long folderId, @RequestParam Long taskCategoriesId){
-        folderService.deleteCategoryFromFolder(folderId, taskCategoriesId);
+    public String deleteCategoryFromFolder(@RequestParam Long folderId, @RequestParam Long taskCategoryId){
+        folderService.deleteCategoryFromFolder(folderId, taskCategoryId);
         return "redirect:/folder/details/"+folderId;
     }
 

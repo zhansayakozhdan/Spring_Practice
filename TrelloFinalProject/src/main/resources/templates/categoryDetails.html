@@ -8,12 +8,9 @@
             <input type="hidden" th:value="${category.id}" name="id">
             <label for="categoryNameField" class="form-label">Category's Name:</label>
             <input type="text" name="name" class="form-control" id="categoryNameField" th:value="${category.name}">
+
         </div>
-        <buttin class="btn btn-primary" type="submit">UPDATE</buttin>
     </form>
-    <form action="/category/delete">
-        <input type="hidden" th:value="${category.id}" name="id">
-        <button class="btn btn-danger" type="submit">DELETE</button>
-    </form>
+
 </div>
 </html>

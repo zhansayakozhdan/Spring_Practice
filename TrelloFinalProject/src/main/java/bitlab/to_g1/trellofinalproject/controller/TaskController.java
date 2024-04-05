@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -34,14 +35,21 @@ public class TaskController {
     @PostMapping("/edit/task")
     public String editTaskStatus(Task task, Model model){
         Task editedTask = taskService.editTaskStatus(task);
-        model.addAttribute("resultStatus", taskService.statusResult(editedTask.getStatus()));
-        return "redirect:/task/details/"+task.getId();
+        String message = taskService.statusResult(editedTask.getStatus());
+        model.addAttribute("resultStatus", message);
+        return "redirect:/folder/details/"+task.getFolder().getId();
     }
 
     @PostMapping("/add/comment/toTask")
     public String addCommentToTask(Comment comment){
         commentService.addCommentToTask(comment);
         return "redirect:/task/details/"+comment.getTask().getId();
+    }
+
+    @PostMapping("delete/comment/fromTask")
+    public String deleteComment(@RequestParam Long taskId, @RequestParam Long commentId){
+        commentService.deleteCommentById(taskId, commentId);
+        return "redirect:/task/details/"+taskId;
     }
 
 }

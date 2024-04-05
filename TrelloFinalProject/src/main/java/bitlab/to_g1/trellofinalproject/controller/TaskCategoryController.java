@@ -35,16 +35,5 @@ public class TaskCategoryController {
         taskCategoryService.createTaskCategory(taskCategory);
         return "redirect:/task/categories";
     }
-    @PostMapping("/category/edit")
-    public String editCategory(TaskCategory taskCategory){
-        taskCategoryService.editTaskCategory(taskCategory);
-        return "redirect:/task/categories";
-    }
-
-    @PostMapping("/category/delete")
-    public String deleteCategoryById(@RequestParam Long id){
-        taskCategoryService.deleteTaskCategoryById(id);
-        return "redirect:/task/categories";
-    }
 
 }

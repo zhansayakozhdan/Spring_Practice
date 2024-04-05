@@ -4,6 +4,8 @@ import bitlab.to_g1.trellofinalproject.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "TASKS")
 @AllArgsConstructor
@@ -12,13 +14,13 @@ import lombok.*;
 @Setter
 @Builder
 public class Task extends BaseEntity {
-    @Column(name = "TITLE")
+    @Column(name = "TITLE", nullable = false)
     private String title;
 
     @Column(name = "DESCRIPTION")
     private String description; // TEXT
 
-    @Column(name = "STATUS")
+    @Column(name = "STATUS", nullable = false)
     private Integer status;        // 0 - todo, 1 - intest, 2 - done, 3 - failed
 
     @ManyToOne
