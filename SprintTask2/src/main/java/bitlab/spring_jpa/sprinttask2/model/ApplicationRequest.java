@@ -27,6 +27,6 @@ public class ApplicationRequest {
     @Column(name = "HANDLED")
     private boolean handled;
 
-    @ManyToOne
+    @ManyToOne  //много запросов на один курс или у одного курса много разных запросов
     private Course course;
 }
