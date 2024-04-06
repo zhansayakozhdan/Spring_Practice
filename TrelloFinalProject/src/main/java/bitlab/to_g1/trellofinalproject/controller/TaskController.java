@@ -23,7 +23,7 @@ public class TaskController {
     private CommentService commentService;
 
     @GetMapping("/task/details/{id}")
-    public String taskDetailsPage(@PathVariable Long id, Model model){
+    public String taskDetailsPage(@PathVariable Long id, Model model) {
         Task task = taskService.getTaskById(id);
         model.addAttribute("zadacha", task);
 
@@ -33,23 +33,23 @@ public class TaskController {
     }
 
     @PostMapping("/edit/task")
-    public String editTaskStatus(Task task, Model model){
+    public String editTaskStatus(Task task, Model model) {
         Task editedTask = taskService.editTaskStatus(task);
         String message = taskService.statusResult(editedTask.getStatus());
         model.addAttribute("resultStatus", message);
-        return "redirect:/folder/details/"+task.getFolder().getId();
+        return "redirect:/folder/details/" + task.getFolder().getId();
     }
 
     @PostMapping("/add/comment/toTask")
-    public String addCommentToTask(Comment comment){
+    public String addCommentToTask(Comment comment) {
         commentService.addCommentToTask(comment);
-        return "redirect:/task/details/"+comment.getTask().getId();
+        return "redirect:/task/details/" + comment.getTask().getId();
     }
 
     @PostMapping("delete/comment/fromTask")
-    public String deleteComment(@RequestParam Long taskId, @RequestParam Long commentId){
+    public String deleteComment(@RequestParam Long taskId, @RequestParam Long commentId) {
         commentService.deleteCommentById(taskId, commentId);
-        return "redirect:/task/details/"+taskId;
+        return "redirect:/task/details/" + taskId;
     }
 
 }

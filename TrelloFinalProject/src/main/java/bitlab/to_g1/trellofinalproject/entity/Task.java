@@ -4,8 +4,6 @@ import bitlab.to_g1.trellofinalproject.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "TASKS")
 @AllArgsConstructor

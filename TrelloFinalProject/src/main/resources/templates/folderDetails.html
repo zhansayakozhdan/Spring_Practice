@@ -10,35 +10,40 @@
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                 <!-- Button category delete modal -->
                 <div th:each="category : ${papka.getTaskCategories()}">
-                <button th:text="${category.name} + ' x'" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" th:data-bs-target="${'#deleteCategoryModal'+category.id}">
-                </button>
+                    <button th:text="${category.name} + ' x'" type="button" class="btn btn-outline-primary"
+                            data-bs-toggle="modal" th:data-bs-target="${'#deleteCategoryModal'+category.id}">
+                    </button>
 
-                <!-- Modal category delete -->
-                <form action="/delete/category/fromFolder" method="post">
-                <div class="modal fade" th:id="${'deleteCategoryModal'+category.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="deleteCategoryModalLabel">Remove Category</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Вы точно хотите удалить категорию <b th:text="${category.name}"></b>?</p>
-                                <input type="hidden" name="folderId" th:value="${papka.id}">
-                                <input type="hidden" name="taskCategoryId" th:value="${category.id}">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-danger">REMOVE</button>
+                    <!-- Modal category delete -->
+                    <form action="/delete/category/fromFolder" method="post">
+                        <div class="modal fade" th:id="${'deleteCategoryModal'+category.id}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="deleteCategoryModalLabel">Remove Category</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Вы точно хотите удалить категорию <b th:text="${category.name}"></b>?</p>
+                                        <input type="hidden" name="folderId" th:value="${papka.id}">
+                                        <input type="hidden" name="taskCategoryId" th:value="${category.id}">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-danger">REMOVE</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                </form>
+                    </form>
                 </div>
 
                 <!-- Button for add category modal -->
-                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
                     + ADD CATEGORY TO FOLDER
                 </button>
             </div>
@@ -57,7 +62,8 @@
                     <label class="form-label">Category's Name:</label>
                     <input type="hidden" name="folderId" th:value="${papka.id}">
                     <select name="taskCategoryId" class="form-select">
-                        <option th:each="kategoriya : ${kategorii}" th:text="${kategoriya.name}" th:value="${kategoriya.id}"></option>
+                        <option th:each="kategoriya : ${kategorii}" th:text="${kategoriya.name}"
+                                th:value="${kategoriya.id}"></option>
                     </select>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -89,7 +95,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="taskDescriptionField" class="form-label">Description:</label>
-                        <textarea type="text" name="description" class="form-control" id="taskDescriptionField"></textarea>
+                        <textarea type="text" name="description" class="form-control"
+                                  id="taskDescriptionField"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -112,7 +119,7 @@
             <td th:text="${task.id}"></td>
             <td th:text="${task.title}"></td>
             <td th:class="${task.status == 0 ? 'text-primary' : (task.status == 1 ? 'text-warning' : (task.status == 2 ? 'text-success' : 'text-danger'))}"
-            th:text="${task.status == 0 ? 'TO DO' : (task.status == 1 ? 'IN TEST' : (task.status == 2 ? 'DONE' : 'FAILED'))}"></td>
+                th:text="${task.status == 0 ? 'TO DO' : (task.status == 1 ? 'IN TEST' : (task.status == 2 ? 'DONE' : 'FAILED'))}"></td>
             <td><a th:href="@{'/task/details/' + ${task.id}}" class="btn btn-primary">View More</a></td>
         </tr>
         </tbody>

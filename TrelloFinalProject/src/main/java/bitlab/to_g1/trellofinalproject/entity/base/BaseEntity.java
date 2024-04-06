@@ -1,7 +1,10 @@
 package bitlab.to_g1.trellofinalproject.entity.base;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @MappedSuperclass
 @AllArgsConstructor
