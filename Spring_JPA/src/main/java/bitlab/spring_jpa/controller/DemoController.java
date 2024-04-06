@@ -30,6 +30,12 @@ public class DemoController {
         return "redirect:/";
     }
 
+    /**
+     * @PathVariable Long id => из фронта берем айдишку 
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/developer/{id}")
     public String detailsPage(@PathVariable Long id, Model model) {
         Developer developer = developerService.getDeveloperById(id);

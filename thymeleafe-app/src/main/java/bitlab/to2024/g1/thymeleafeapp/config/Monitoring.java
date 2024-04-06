@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Monitoring {
+    /**
+     * пример реализации Configuration
+     */
     @Scheduled(fixedDelay = 5000)
     public void monitoring(){
         DbManager.getPhones()

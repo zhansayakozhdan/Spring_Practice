@@ -20,11 +20,20 @@ public class HomeController {
         return "home";
     }
 
+    /**
+     * для отображения новой странички
+     * @return
+     */
     @GetMapping("/addStudent")
     public String createStudentPage(){
         return "addStudent";
     }
 
+    /**
+     * для добавления студента
+     * @param student
+     * @return
+     */
     @PostMapping("/students/add")
     public String addStudentPage(Student student){
         student.setMark(DbManager.resultGrade(student.getExam()));
