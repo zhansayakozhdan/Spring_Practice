@@ -72,8 +72,9 @@ public class HomeController {
 
     @PostMapping("/delete/task/fromFolder")
     public String deleteTask(@RequestParam Long id) {
+        Task task = taskService.getTaskById(id);
         taskService.deleteTaskById(id);
-        return "redirect:/";
+        return "redirect:/folder/details/"+task.getFolder().getId();
     }
 
     @PostMapping("/folder/delete")

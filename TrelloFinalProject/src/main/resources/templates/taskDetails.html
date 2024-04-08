@@ -25,30 +25,59 @@
                 <option th:value="${2}" th:selected="${zadacha.status==2}">DONE</option>
                 <option th:value="${3}" th:selected="${zadacha.status==3}">FAILED</option>
             </select>
+            <p class="fw-light">*После изменения статуса на FAILED/DONE вы не сможете изменять/удалять задание и
+                добавлять комментарий.</p>
         </div>
-        <button class="btn btn-primary" type="submit"
-                th:hidden="${zadacha.status==2 || zadacha.status==3 ? 'true' : 'false'}">Save Changes
-        </button>
+        <div class="d-grid gap-2 d-md-block">
+            <button class="btn btn-primary" type="submit"
+                    th:hidden="${zadacha.status==2 || zadacha.status==3 ? 'true' : 'false'}">UPDATE STATUS
+            </button>
+            <!-- Button delete task modal -->
+            <button type="button" class="btn btn-danger"
+                    th:hidden="${zadacha.status==2 || zadacha.status==3 ? 'true' : 'false'}" data-bs-toggle="modal"
+                    data-bs-target="#deleteTaskModal">
+                DELETE TASK
+            </button>
+        </div>
     </form>
+
+    <!-- Modal for delete task -->
     <form action="/delete/task/fromFolder" method="post">
-        <input type="hidden" th:value="${zadacha.id}" name="id">
-        <button class="btn btn-danger" th:hidden="${zadacha.status==2 || zadacha.status==3 ? 'true' : 'false'}">DELETE
-            TASK
-        </button>
+        <div class="modal fade" id="deleteTaskModal" tabindex="-1" aria-labelledby="deleteTaskModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="deleteTaskModalLabel">Delete Task</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы точно хотите удалить задание <b th:text="${zadacha.title}"></b> из папки <b
+                                th:text="${zadacha.getFolder().name}"></b>?</p>
+                        <input type="hidden" th:value="${zadacha.id}" name="id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete Task</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 
     <hr>
-    <div class="mb-3" th:hidden="${zadacha.status==2 || zadacha.status==3 ? 'true' : 'false'}">
-        <form action="/add/comment/toTask" method="post">
-            <input type="hidden" name="task.id" th:value="${zadacha.id}">
-            <label for="commentTextarea" class="form-label">Your comment:</label>
-            <textarea th:name="value" class="form-control mb-1" id="commentTextarea" rows="3"
-                      placeholder="Write a comment..."></textarea>
 
-            <button class="btn btn-primary btn-sm" type="submit">ADD COMMENT</button>
-        </form>
+    <form action="/add/comment/toTask" method="post" class="mb-3"
+          th:hidden="${zadacha.status==2 || zadacha.status==3 ? 'true' : 'false'}">
+        <input type="hidden" name="task.id" th:value="${zadacha.id}">
+        <label for="commentTextarea" class="form-label">Your comment:</label>
+        <textarea th:name="value" class="form-control mb-1" id="commentTextarea" rows="3"
+                  placeholder="Write a comment..."></textarea>
+
+        <button class="btn btn-success btn-sm float-md-end" type="submit">ADD COMMENT</button>
+        <br>
         <hr>
-    </div>
+    </form>
 
 
     <h5>Comments:</h5>
@@ -64,7 +93,6 @@
                         th:hidden="${zadacha.status==2 || zadacha.status==3 ? 'true' : 'false'}">DELETE COMMENT
                 </button>
             </form>
-
         </div>
     </div>
 
